@@ -1,9 +1,13 @@
 <template>
-  <div class="home">
+  <div class="MovieList">
     <img alt="Vue logo" src="../assets/logo.png" />
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {};
+  }
+};
 </script>
