@@ -34,27 +34,29 @@ export default {
     };
   },
   methods: {
-    submit(e) {
+    async submit(e) {
       const query = e.target.value.trim();
 
       if (query.length) {
-        HTTP.get("/search/movie", {
-          params: {
-            query
-          }
-        })
-          .then(resp => {
-            this.movies = resp.data.results;
-          })
-          .catch(error => console.log(error));
+        try {
+          const response = await HTTP.get("/search/movie", {
+            params: { query }
+          });
+          this.movies = response.data.results;
+        } catch (error) {
+          console.log(error);
+        }
       }
     }
   },
 
-  created() {
-    HTTP.get("/discover/movie").then(resp => {
-      this.movies = resp.data.results;
-    });
+  async created() {
+    try {
+      const response = await HTTP.get("/discover/movie");
+      this.movies = response.data.results;
+    } catch (error) {
+      console.log(error);
+    }
   }
 };
 </script>
