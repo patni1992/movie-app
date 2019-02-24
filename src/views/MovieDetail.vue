@@ -99,18 +99,15 @@ export default {
   methods: {},
 
   async created() {
-    HTTP.get(`/movie/${this.$route.params.id}`, {
+    const response = await HTTP.get(`/movie/${this.$route.params.id}`, {
       params: {
         append_to_response: "videos,credits"
       }
-    })
-      .then(resp => {
-        this.movie = resp.data;
-      })
-      .finally(() => {
-        this.items[this.items.length - 1].text = this.movie.title;
-        return (this.loading = false);
-      });
+    });
+
+    this.movie = response.data;
+    this.items[this.items.length - 1].text = this.movie.title;
+    this.loading = false;
   }
 };
 </script>
