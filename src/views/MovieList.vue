@@ -1,5 +1,6 @@
 <template>
   <div>
+    <b-alert variant="danger" :show="!!error">{{ error }}</b-alert>
     <div class="mt-3" style="maxWidth: 500px; margin: 0 auto;">
       <b-form-input
         v-on:keyup.enter="submit"
@@ -30,7 +31,8 @@ import { HTTP } from "@/api";
 export default {
   data() {
     return {
-      movies: []
+      movies: [],
+      error: ""
     };
   },
   methods: {
@@ -44,7 +46,7 @@ export default {
           });
           this.movies = response.data.results;
         } catch (error) {
-          console.log(error);
+          this.error = error.response.data.status_message;
         }
       }
     }
@@ -55,7 +57,7 @@ export default {
       const response = await HTTP.get("/discover/movie");
       this.movies = response.data.results;
     } catch (error) {
-      console.log(error);
+      this.error = error.response.data.status_message;
     }
   }
 };
