@@ -13,23 +13,11 @@
     <app-spinner v-if="loading" />
     <div v-else>
       <b-row class="m-3">
-        <b-col sm="6" lg="3" v-for="movie in movies" :key="movie.id">
-          <router-link
-            class="link"
-            :to="{ name: 'MovieDetail', params: { id: movie.id } }"
-          >
-            <b-card
-              :img-src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-              img-alt="Movie poster card"
-              img-top
-              class="p-0 border-0"
-            >
-              <b-card-text>
-                <h2>{{ movie.title }}</h2>
-              </b-card-text>
-            </b-card>
-          </router-link>
-        </b-col>
+        <app-movie-card
+          v-for="movie in movies"
+          :key="movie.id"
+          :movie="movie"
+        />
       </b-row>
     </div>
   </div>
@@ -37,7 +25,11 @@
 
 <script>
 import { HTTP } from "@/api";
+import AppMovieCard from "@/components/AppMovieCard.vue";
 export default {
+  components: {
+    AppMovieCard
+  },
   data() {
     return {
       movies: [],

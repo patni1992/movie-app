@@ -41,7 +41,7 @@
         </b-row>
         <p>{{ movie.overview }}</p>
         <b-row>
-          <b-col sm="12" lg="6" >
+          <b-col sm="12" lg="6">
             <b-table striped hover :items="movie.credits.cast" :fields="fields">
               <template slot="profile_path" slot-scope="data">
                 <img
