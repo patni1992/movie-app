@@ -14,20 +14,21 @@
     <div v-else>
       <b-row class="m-3">
         <b-col sm="6" lg="3" v-for="movie in movies" :key="movie.id">
-          <b-card
-            :title="movie.title"
-            :img-src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-            img-alt="Movie poster card"
-            img-top
-            class="p-0 border-0"
+          <router-link
+            class="link"
+            :to="{ name: 'MovieDetail', params: { id: movie.id } }"
           >
-            <b-card-text>
-              Rating {{ movie.vote_average }} / 10
-              <b-button class="d-block mt-3" @click="goToDetail(movie.id)"
-                >Read more</b-button
-              >
-            </b-card-text>
-          </b-card>
+            <b-card
+              :img-src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+              img-alt="Movie poster card"
+              img-top
+              class="p-0 border-0"
+            >
+              <b-card-text>
+                <h2>{{ movie.title }}</h2>
+              </b-card-text> </b-card
+            >/
+          </router-link>
         </b-col>
       </b-row>
     </div>
@@ -64,10 +65,6 @@ export default {
     },
     cacheData(key, data) {
       sessionStorage.setItem(key, JSON.stringify(data));
-    },
-    goToDetail(id) {
-      this.cacheData("movie", this.movies.find(movie => movie.id == id));
-      this.$router.push({ name: "MovieDetail", params: { id } });
     }
   },
   async created() {
@@ -88,3 +85,4 @@ export default {
   }
 };
 </script>
+

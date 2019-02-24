@@ -17,10 +17,17 @@
       <div class="container">
         <h2>{{ movie.title }}</h2>
         <b-row class="mb-3">
+          <b-col sm="12" lg="3"
+            ><span class="font-weight-bold">Rating</span>
+            {{ movie.vote_average }} / 10
+          </b-col>
           <b-col sm="12" lg="3">
+            <span class="font-weight-bold"> Date </span>
             {{ movie.release_date }}
           </b-col>
-          <b-col sm="12" lg="3"> {{ movie.runtime }} min </b-col>
+          <b-col sm="12" lg="3">
+            <span class="font-weight-bold">length</span> {{ movie.runtime }} min
+          </b-col>
           <b-col sm="12" lg="3">
             <b-badge
               v-for="genre in movie.genres"
