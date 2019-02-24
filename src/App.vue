@@ -10,4 +10,8 @@ a,
 a:hover {
   color: $black;
 }
+.breadcrumb {
+  background: none;
+  padding: 0;
+}
 </style>

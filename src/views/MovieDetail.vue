@@ -15,6 +15,7 @@
       >
       </b-jumbotron>
       <div class="container">
+        <b-breadcrumb :items="items" />
         <h2>{{ movie.title }}</h2>
         <b-row class="mb-3">
           <b-col sm="12" lg="3"
@@ -74,6 +75,15 @@ import { HTTP } from "@/api";
 export default {
   data() {
     return {
+      items: [
+        {
+          text: "Movies",
+          to: "/"
+        },
+        {
+          text: ""
+        }
+      ],
       fields: [
         {
           key: "name"
@@ -97,7 +107,10 @@ export default {
       .then(resp => {
         this.movie = resp.data;
       })
-      .finally(() => (this.loading = false));
+      .finally(() => {
+        this.items[this.items.length - 1].text = this.movie.title;
+        return (this.loading = false);
+      });
   }
 };
 </script>

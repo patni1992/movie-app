@@ -26,8 +26,8 @@
             >
               <b-card-text>
                 <h2>{{ movie.title }}</h2>
-              </b-card-text> </b-card
-            >/
+              </b-card-text>
+            </b-card>
           </router-link>
         </b-col>
       </b-row>
@@ -85,4 +85,3 @@ export default {
   }
 };
 </script>
-
