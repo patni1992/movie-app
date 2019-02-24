@@ -30,6 +30,29 @@
         </b-col>
       </b-row>
       <p>{{ movie.overview }}</p>
+      <b-row>
+        <b-col>
+          <b-table striped hover :items="movie.credits.cast" :fields="fields">
+            <template slot="profile_path" slot-scope="data">
+              <img
+                :src="`http://image.tmdb.org/t/p/w45/${data.item.profile_path}`"
+                alt=""
+              />
+            </template>
+          </b-table>
+        </b-col>
+        <b-col>
+          <b-embed
+            class="pb-3"
+            v-for="video in movie.videos.results"
+            :key="video.id"
+            type="iframe"
+            aspect="16by9"
+            :src="`https://www.youtube.com/embed/${video.key}?rel=0$`"
+            allowfullscreen
+          />
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -39,6 +62,13 @@ import { HTTP } from "@/api";
 export default {
   data() {
     return {
+      fields: [
+        {
+          key: "name"
+        },
+        { key: "character" },
+        { key: "profile_path", label: "picture" }
+      ],
       movie: null,
       error: ""
     };
