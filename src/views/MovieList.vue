@@ -7,7 +7,7 @@
         style="width: 100%"
         class="d-block p-2 search"
         type="text"
-        placeholder="Search for a movie"
+        placeholder="Search for a movie (press enter)"
       />
     </div>
     <app-spinner v-if="loading" />
