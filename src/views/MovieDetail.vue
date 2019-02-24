@@ -41,7 +41,7 @@
         </b-row>
         <p>{{ movie.overview }}</p>
         <b-row>
-          <b-col>
+          <b-col sm="12" >
             <b-table striped hover :items="movie.credits.cast" :fields="fields">
               <template slot="profile_path" slot-scope="data">
                 <img
@@ -53,7 +53,7 @@
               </template>
             </b-table>
           </b-col>
-          <b-col>
+          <b-col sm="12">
             <b-embed
               class="pb-3"
               v-for="video in movie.videos.results"
