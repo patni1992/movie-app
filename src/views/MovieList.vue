@@ -1,23 +1,17 @@
 <template>
-  <div class="MovieList row justify-content-center ">
-    <div
-      v-for="movie in movies"
-      :key="movie.id"
-      class="card col-2 m-3 p-0 border-0"
-    >
-      <img
-        class="card-img-top m-0 p-0"
-        :src="`http://image.tmdb.org/t/p/w300/${movie.poster_path}`"
-        alt="Card image"
-      />
-      <div class="card-body">
-        <h3 class="card-title">{{ movie.title }}</h3>
-        <div>
-          <p>Rating {{ movie.vote_average }} / 10</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <b-row>
+    <b-col sm="6" lg="3" v-for="movie in movies" :key="movie.id">
+      <b-card
+        :title="movie.title"
+        :img-src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+        img-alt="Movie poster card"
+        img-top
+        class=" m-3 p-0 border-0"
+      >
+        <b-card-text> Rating {{ movie.vote_average }} / 10 </b-card-text>
+      </b-card>
+    </b-col>
+  </b-row>
 </template>
 
 <script>
