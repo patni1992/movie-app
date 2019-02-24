@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import { HTTP } from "@/api";
+import { API } from "@/api";
 export default {
   data() {
     return {
@@ -99,7 +99,7 @@ export default {
   methods: {},
 
   async created() {
-    const response = await HTTP.get(`/movie/${this.$route.params.id}`, {
+    const response = await API.get(`/movie/${this.$route.params.id}`, {
       params: {
         append_to_response: "videos,credits"
       }

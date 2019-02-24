@@ -24,7 +24,7 @@
 </template>
 
 <script>
-import { HTTP } from "@/api";
+import { API } from "@/api";
 import AppMovieCard from "@/components/AppMovieCard.vue";
 export default {
   components: {
@@ -44,7 +44,7 @@ export default {
 
       if (query.length) {
         try {
-          const response = await HTTP.get("/search/movie", {
+          const response = await API.get("/search/movie", {
             params: { query }
           });
           this.movies = response.data.results;
@@ -66,7 +66,7 @@ export default {
       this.movies = movies;
     } else {
       try {
-        const response = await HTTP.get("/discover/movie");
+        const response = await API.get("/discover/movie");
         this.movies = response.data.results;
         this.cacheData("movies", this.movies);
       } catch (error) {
