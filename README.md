@@ -1,34 +1,21 @@
-# movie-app
+### Dev env
 
-## Project setup
 ```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
+git clone this repo
 ```
 
-### Compiles and minifies for production
 ```
-yarn run build
-```
-
-### Run your tests
-```
-yarn run test
+cd into folder
 ```
 
-### Lints and fixes files
 ```
-yarn run lint
-```
-
-### Run your unit tests
-```
-yarn run test:unit
+Create .env file and enter missing values, (look at .example.env)
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+yarn install && yarn serve
+```
+
+### Live Demo
+
+https://boring-kirch-cf752e.netlify.com/
