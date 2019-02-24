@@ -1,23 +1,41 @@
 <template>
-  <div>
-    <b-row v-if="movie" class="m-3">
-      <b-col sm="6" lg="3">
-        <b-card
-          :title="movie.title"
-          :img-src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-          img-alt="Movie poster card"
-          img-top
-          class="p-0 border-0"
-        >
-          <b-card-text> Rating {{ movie.vote_average }} / 10 </b-card-text>
-        </b-card>
-      </b-col>
-    </b-row>
+  <div v-if="!!movie">
+    <b-jumbotron
+      :style="{
+        backgroundImage: `url(http://image.tmdb.org/t/p/w1280/${
+          movie.poster_path
+        })`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover'
+      }"
+      class="text-light movie-header"
+    >
+    </b-jumbotron>
+    <div class="container">
+      <h2>{{ movie.title }}</h2>
+      <b-row class="mb-3">
+        <b-col sm="12" lg="3">
+          {{ movie.release_date }}
+        </b-col>
+        <b-col sm="12" lg="3"> {{ movie.runtime }} min </b-col>
+        <b-col sm="12" lg="3">
+          <b-badge
+            v-for="genre in movie.genres"
+            :key="genre.id"
+            variant="secondary"
+            class="mr-2"
+            >{{ genre.name }}</b-badge
+          >
+        </b-col>
+      </b-row>
+      <p>{{ movie.overview }}</p>
+    </div>
   </div>
 </template>
 
 <script>
-// import { HTTP } from "@/api";
+import { HTTP } from "@/api";
 export default {
   data() {
     return {
@@ -28,13 +46,18 @@ export default {
   methods: {},
 
   async created() {
-    const movie = JSON.parse(sessionStorage.getItem("movie"));
-    if (movie && movie.id == this.$route.params.id) {
-      this.movie = movie;
-    }
-    // HTTP.get("/movies/get-movie-credits").then(resp => {
-    //   console.log(resp.data);
-    // });
+    HTTP.get(`/movie/${this.$route.params.id}`, {
+      params: {
+        append_to_response: "videos,credits"
+      }
+    }).then(resp => {
+      this.movie = resp.data;
+    });
   }
 };
 </script>
+<style scoped lang="scss">
+.movie-header {
+  padding-bottom: 22rem;
+}
+</style>
