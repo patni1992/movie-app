@@ -10,22 +10,27 @@
         placeholder="Search for a movie"
       />
     </div>
-    <b-row class="m-3">
-      <b-col sm="6" lg="3" v-for="movie in movies" :key="movie.id">
-        <b-card
-          :title="movie.title"
-          :img-src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
-          img-alt="Movie poster card"
-          img-top
-          class="p-0 border-0"
-        >
-          <b-card-text>
-            Rating {{ movie.vote_average }} / 10
-            <b-button class="d-block mt-3" @click="goToDetail(movie.id)">Read more</b-button>
-          </b-card-text>
-        </b-card>
-      </b-col>
-    </b-row>
+    <app-spinner v-if="loading" />
+    <div v-else>
+      <b-row class="m-3">
+        <b-col sm="6" lg="3" v-for="movie in movies" :key="movie.id">
+          <b-card
+            :title="movie.title"
+            :img-src="`http://image.tmdb.org/t/p/w500/${movie.poster_path}`"
+            img-alt="Movie poster card"
+            img-top
+            class="p-0 border-0"
+          >
+            <b-card-text>
+              Rating {{ movie.vote_average }} / 10
+              <b-button class="d-block mt-3" @click="goToDetail(movie.id)"
+                >Read more</b-button
+              >
+            </b-card-text>
+          </b-card>
+        </b-col>
+      </b-row>
+    </div>
   </div>
 </template>
 
@@ -35,11 +40,13 @@ export default {
   data() {
     return {
       movies: [],
-      error: ""
+      error: "",
+      loading: true
     };
   },
   methods: {
     async submit(e) {
+      this.loading = true;
       const query = e.target.value.trim();
 
       if (query.length) {
@@ -53,6 +60,7 @@ export default {
           this.error = error.response.data.status_message;
         }
       }
+      this.loading = false;
     },
     cacheData(key, data) {
       sessionStorage.setItem(key, JSON.stringify(data));
@@ -76,6 +84,7 @@ export default {
         this.error = error.response.data.status_message;
       }
     }
+    this.loading = false;
   }
 };
 </script>
