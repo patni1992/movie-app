@@ -19,7 +19,10 @@
           img-top
           class="p-0 border-0"
         >
-          <b-card-text> Rating {{ movie.vote_average }} / 10 </b-card-text>
+          <b-card-text>
+            Rating {{ movie.vote_average }} / 10
+            <b-button class="d-block mt-3" @click="goToDetail(movie.id)">Read more</b-button>
+          </b-card-text>
         </b-card>
       </b-col>
     </b-row>
@@ -45,19 +48,33 @@ export default {
             params: { query }
           });
           this.movies = response.data.results;
+          this.cacheData("movies", this.movies);
         } catch (error) {
           this.error = error.response.data.status_message;
         }
       }
+    },
+    cacheData(key, data) {
+      sessionStorage.setItem(key, JSON.stringify(data));
+    },
+    goToDetail(id) {
+      this.cacheData("movie", this.movies.find(movie => movie.id == id));
+      this.$router.push({ name: "MovieDetail", params: { id } });
     }
   },
-
   async created() {
-    try {
-      const response = await HTTP.get("/discover/movie");
-      this.movies = response.data.results;
-    } catch (error) {
-      this.error = error.response.data.status_message;
+    const movies = JSON.parse(sessionStorage.getItem("movies"));
+
+    if (movies) {
+      this.movies = movies;
+    } else {
+      try {
+        const response = await HTTP.get("/discover/movie");
+        this.movies = response.data.results;
+        this.cacheData("movies", this.movies);
+      } catch (error) {
+        this.error = error.response.data.status_message;
+      }
     }
   }
 };
