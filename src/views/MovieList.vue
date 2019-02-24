@@ -1,11 +1,11 @@
 <template>
   <div>
     <b-alert variant="danger" :show="!!error">{{ error }}</b-alert>
-    <div class="mt-3" style="maxWidth: 500px; margin: 0 auto;">
+    <div class="m-3">
       <b-form-input
         v-on:keyup.enter="submit"
         style="width: 100%"
-        class="d-block p-2"
+        class="d-block p-2 search"
         type="text"
         placeholder="Search for a movie"
       />
@@ -85,3 +85,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.search {
+  max-width: 22rem;
+  margin: 0 auto;
+}
+</style>
