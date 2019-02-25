@@ -113,6 +113,8 @@ export default {
 </script>
 <style scoped lang="scss">
 .movie-header {
+  margin: 0 auto;
+  max-width: 1680px;
   padding-bottom: 22rem;
   @media (max-width: $breakpoint-small) {
     padding-bottom: 13rem;
